@@ -1,0 +1,31 @@
+*{margin:0; padding: 0; box-sizing: border-box;}
+
+.content {
+  display: flex;
+  margin: auto;
+}
+
+.Teble-responsiva{width: 100%; text-align: center;}
+  .Teble-responsiva thead{background: rgba(0, 0, 255, 0.781); font-weight: bold; color: #fff;}
+  .Teble-responsiva tbody tr:nth-child(2n){background: #ccc;} /* Acada dois elemento ela faz efeito zebrado*/
+  .Teble-responsiva th, .Teble-responsiva td{padding: 7px;}
+
+
+@media screen and (max-width: 480px){
+  .content{width: 94%;}
+  .Teble-responsiva thead{display: none;}
+  .Teble-responsiva tbody td{display: flex; flex-direction: column;}
+
+}
+
+@media only screen and (max-width: 1200px){
+  .content{width: 100%;}
+
+  /* Dimesionamento das colunas */
+  .Teble-responsiva tbody tr td:nth-child(1){width:10%;}
+  .Teble-responsiva tbody tr td:nth-child(2){width:15%;}
+  .Teble-responsiva tbody tr td:nth-child(3){width:15%;}
+  .Teble-responsiva tbody tr td:nth-child(4){width:20%;}
+  .Teble-responsiva tbody tr td:nth-child(5){width:15%;}
+  .Teble-responsiva tbody tr td:nth-child(6){width:25%;}
+}
