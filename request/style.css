@@ -1,20 +1,80 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap'); */
+
 *{margin:0; padding: 0; box-sizing: border-box;}
+
+/* body{
+  font-family: "Roboto", sans-serif;
+} */
+
 
 .content {
   display: flex;
-  margin: auto;
+  padding: 1rem;
+  margin-top: 1rem ;
+  justify-content: center;
+  background-color: #fff;
+  align-items: center;
+  align-content: center;
+}
+/* Ajustar carde dentro do Media responsivo */
+.card{
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0px 2px 18px rgba(32, 48, 83, 0.555);
+  width: 300px;
 }
 
-.Teble-responsiva{width: 100%; text-align: center;}
-  .Teble-responsiva thead{background: rgba(0, 0, 255, 0.781); font-weight: bold; color: #fff;}
-  .Teble-responsiva tbody tr:nth-child(2n){background: #ccc;} /* Acada dois elemento ela faz efeito zebrado*/
-  .Teble-responsiva th, .Teble-responsiva td{padding: 7px;}
+.mediaCard{
+  background: url("https://images.template.net/wp-content/uploads/2015/04/Cool-Digital-Wallpaper.jpg") center/cover;
+  height: 150px;
+  width: 100%;
+}
+
+.name {
+  color: #0a335f;
+}
+
+.user-name{
+  color: #6999d8;
+}
+
+.top-card {
+ padding: 20px;
+ /* padding: 0px; */
+ }
+
+ .bottomCard {
+   padding: 20px;
+ }
+
+ .bottomText{
+   color: #8cb2e4;
+ }
+.actions {
+  background: none;
+  border: none;
+  color: #D35400;
+}
+
+.drag-and-drop {cursor: move;}
+
+.teble{width: 100%; text-align: center;box-shadow: 0px 2px 18px rgba(32, 48, 83, 0.555);}
+.teble thead{background: #2E4053;  font-weight: bold; color: #fff ;}
+.teble tbody tr:nth-child(2n){background: #ABEBC6;} /* Acada dois elemento ela faz efeito zebrado*/
+.teble th, .teble td{padding: 7px;}
+
+
+
+  /* .card{width: 100%;} */
+
+
 
 
 @media screen and (max-width: 480px){
   .content{width: 94%;}
-  .Teble-responsiva thead{display: none;}
-  .Teble-responsiva tbody td{display: flex; flex-direction: column;}
+  .teble thead{display: none;}
+  .teble tbody td{display: flex; flex-direction: column;}
+  .card{background: #fff;}
 
 }
 
@@ -22,10 +82,17 @@
   .content{width: 100%;}
 
   /* Dimesionamento das colunas */
-  .Teble-responsiva tbody tr td:nth-child(1){width:10%;}
-  .Teble-responsiva tbody tr td:nth-child(2){width:15%;}
-  .Teble-responsiva tbody tr td:nth-child(3){width:15%;}
-  .Teble-responsiva tbody tr td:nth-child(4){width:20%;}
-  .Teble-responsiva tbody tr td:nth-child(5){width:15%;}
-  .Teble-responsiva tbody tr td:nth-child(6){width:25%;}
+  .teble tbody tr td:nth-child(1){width:10%;}
+  .teble tbody tr td:nth-child(2){width:15%;}
+  .teble tbody tr td:nth-child(3){width:15%;}
+  .teble tbody tr td:nth-child(4){width:20%;}
+  .teble tbody tr td:nth-child(5){width:15%;}
+  .teble tbody tr td:nth-child(6){width:25%;}
+
+  /* Configuração do card
+  .card{background: #fff;}*/
+}
+
+.drag-and-drop.dragging{
+  opacity: .5;
 }

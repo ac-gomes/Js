@@ -34,6 +34,55 @@ async function loadData(fn){
 
 loadData(getData())
 
+// Mover os elementos
+
+const containers = document.querySelectorAll('.content')
+const dragAndDropEls = document.querySelectorAll('.drag-and-drop')
+
+dragAndDropEls.forEach(el =>{
+  el.addEventListener('dragstart', () =>{
+    el.classList.add('dragging')
+  })
+
+  el.addEventListener('dragend', () =>{
+    el.classList.remove('dragging')
+  })
+
+})
+
+containers.forEach(container =>{
+  container.addEventListener('dragover', e =>{
+    e.preventDefault();
+    const afterEl = getDragAfterElement(container, e.clientY)
+    const draggable = document.querySelector('.dragging')
+    if(afterEl == null){
+      container.appendChild(draggable)
+    } else {
+      container.insertBefore(draggable, afterEl)
+    }
+  })
+})
+
+function getDragAfterElement(container, y) {
+  const draggableEls = [...container.querySelectorAll('.drag-and-drop:not(.dragging)')]
+
+ return draggableEls.reduce((closest, child) =>{
+    const box = child.getBoundingClientRect()
+    const offset = y - box.top - box.height / 2
+    console.log(offset)
+
+    //aqui ajustar minha flex-box ou direction no css
+    if(offset < 0 && offset > closest.offset){
+      return {offset: offset, element: child}
+      } else {
+       return closest
+     }
+  }, {offset: Number.NEGATIVE_INFINITY}).element
+}
+
+
+
+
 
 // {
 //   "id": 2,
