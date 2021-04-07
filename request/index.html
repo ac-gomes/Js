@@ -14,50 +14,70 @@
   <!-- https://www.youtube.com/watch?v=U2tEzqk4F9g -->
   <!-- https://www.youtube.com/watch?v=Ws8C1ZwFJ2Q Cards-->
 
+  <section class="itens">
 
-  <div class="content">
-    <table class="drag-and-drop teble" draggable="true">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th>User Name</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Website</th>
-        </tr>
-      </thead>
-
-      <tbody id="teble-content">
-
-      </tbody>
-
-    </table>
-  </div>
+    <div class="content">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Website</th>
+          </tr>
+        </thead>
+        <tbody id="table-content"></tbody>
+      </table>
+    </div>
 
 <div class="content">
   <!--Criar card aqui-->
-  <div class="drag-and-drop card" draggable="true" >
+  <div class="card" id="address">
     <div class="top-card">
-      <h3 class="name">Titulo do Card</h3>
-      <span class="user-name">Descrição</span>
+      <h3 class="name" id="name-card">Titulo do Card</h3>
+      <span class="user-name">Address</span>
     </div>
 
-    <div class="mediaCard">informações</div>
+    <div class="mediaCard" id="card-address">
+      <label id="street"></label>
+      <label id="suite"></label>
+      <label id="city"></label>
+      <label id="zipcode"></label>
+    </div>
 
     <div class="bottomCard">
-      <p class="bottomText"> catchPhrase: Centralized empowering task-force</p>
-
+      <p class="bottomText"> bs: Centralized empowering task-force</p>
       <div class="actionsCard">
         <button class="actions">Próximo</button>
         <button class="actions">Anterior</button>
       </div>
-
     </div>
   </div>
-
 </div>
 
+<div class="content">
+  <!--Criar card aqui-->
+  <div class="card" id="company">
+    <div class="top-card">
+      <h3 class="name" id="name-card2">Titulo do Card</h3>
+      <span class="user-name"id="card-company">Company</span>
+    </div>
+
+    <div class="mediaCard" id="catchPhrase">informações</div>
+
+    <div class="bottomCard">
+      <p class="bottomText" id="bs"> catchPhrase: Centralized empowering task-force</p>
+      <div class="actionsCard">
+        <button class="actions">Próximo</button>
+        <button class="actions">Anterior</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</section>
 
   <script src="index.js"></script>
 </body>

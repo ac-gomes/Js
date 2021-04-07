@@ -1,24 +1,23 @@
 
-let tableEl = document.getElementById('teble-content');
+const dataSource ='https://jsonplaceholder.typicode.com/users'
 
-async function getData() {
-  //Forma mais resumida
-  //return (await fetch('https://jsonplaceholder.typicode.com/users')).json();
+var tableEl = document.getElementById('table-content');
+var tbody = document.querySelector("#table-content");
+var cards = document.getElementsByClassName('card');
+var mediaCards = document.getElementsByClassName('mediaCard');
+console.log(mediaCards)
 
-  const response = await fetch('https://jsonplaceholder.typicode.com/users');
-  const users = await response.json();
 
-   return users;
+async function getData(url) {
+    const response = await fetch(url);
+    return await response.json();
 }
 
 async function loadData(fn){
-
   let users = await fn;
-
   for (let user of users){
-
    row = `
-        <tr>
+        <tr class="tr-rows">
           <td>${user.id}</td>
           <td>${user.name}</td>
           <td>${user.username}</td>
@@ -26,59 +25,66 @@ async function loadData(fn){
           <td>${user.phone}</td>
           <td>${user.website}</td>
         </tr>`
-
     tableEl.innerHTML += row
   }
+}
+
+loadData(getData(dataSource))
+
+
+function getRowId(element){
+
+  element.addEventListener('click', el => {
+    console.log( el.target.parentNode.innerText)
+  });
 
 }
 
-loadData(getData())
+getRowId(tbody)
 
-// Mover os elementos
+// Pegar os dados endereço e empresa
+async function getAdressCompany(fn){
+    const [{id,name},{address},{company}] =  await fn;
+    return console.log(id,name,address,company)
 
-const containers = document.querySelectorAll('.content')
-const dragAndDropEls = document.querySelectorAll('.drag-and-drop')
+}
+getAdressCompany(getData(dataSource))
 
-dragAndDropEls.forEach(el =>{
-  el.addEventListener('dragstart', () =>{
-    el.classList.add('dragging')
-  })
+ function loadDataCards(cardsElements,tableElement,mediaCardEl) {
 
-  el.addEventListener('dragend', () =>{
-    el.classList.remove('dragging')
-  })
+  tableElement.addEventListener('click', el => {
+    const rowValue = el.target.parentNode.innerText[0]
 
-})
+    for (var card = 0; card < cardsElements.length; card++) {
+      if (cardsElements[card].id== 'company'){
 
-containers.forEach(container =>{
-  container.addEventListener('dragover', e =>{
-    e.preventDefault();
-    const afterEl = getDragAfterElement(container, e.clientY)
-    const draggable = document.querySelector('.dragging')
-    if(afterEl == null){
-      container.appendChild(draggable)
-    } else {
-      container.insertBefore(draggable, afterEl)
-    }
-  })
-})
+        document.getElementById('name-card').innerHTML =  rowValue;
+        // id="card-company"
+        // id="catchPhrase"
 
-function getDragAfterElement(container, y) {
-  const draggableEls = [...container.querySelectorAll('.drag-and-drop:not(.dragging)')]
-
- return draggableEls.reduce((closest, child) =>{
-    const box = child.getBoundingClientRect()
-    const offset = y - box.top - box.height / 2
-    console.log(offset)
-
-    //aqui ajustar minha flex-box ou direction no css
-    if(offset < 0 && offset > closest.offset){
-      return {offset: offset, element: child}
       } else {
-       return closest
-     }
-  }, {offset: Number.NEGATIVE_INFINITY}).element
-}
+        document.getElementById('name-card2').innerHTML = rowValue;
+        for (var media = 0; media < mediaCardEl.length; media++) {
+
+          if(mediaCardEl[media].id =='card-address'){
+
+            mediaCardEl[media].children[0].innerHTML = mediaCardEl[media].children[0].id
+            mediaCardEl[media].children[1].innerHTML = mediaCardEl[media].children[1].id
+            mediaCardEl[media].children[2].innerHTML = mediaCardEl[media].children[2].id
+            mediaCardEl[media].children[3].innerHTML = mediaCardEl[media].children[3].id
+
+          }
+
+        }
+
+      }
+    }
+
+  });
+
+ }
+
+ loadDataCards(cards,tbody,mediaCards)
 
 
 
