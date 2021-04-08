@@ -5,17 +5,18 @@ var tableEl = document.getElementById('table-content');
 var tbody = document.querySelector("#table-content");
 var cards = document.getElementsByClassName('card');
 var mediaCards = document.getElementsByClassName('mediaCard');
-console.log(mediaCards)
 
-
+//Obter dados
 async function getData(url) {
     const response = await fetch(url);
     return await response.json();
 }
 
+var dataUsers = getData(dataSource);
+
 async function loadData(fn){
-  let users = await fn;
-  for (let user of users){
+  dataUsers = await fn;
+  for (let user of dataUsers){
    row = `
         <tr class="tr-rows">
           <td>${user.id}</td>
@@ -29,50 +30,32 @@ async function loadData(fn){
   }
 }
 
-loadData(getData(dataSource))
+loadData(dataUsers)
 
-
-function getRowId(element){
-
-  element.addEventListener('click', el => {
-    console.log( el.target.parentNode.innerText)
-  });
-
-}
-
-getRowId(tbody)
-
-// Pegar os dados endereço e empresa
-async function getAdressCompany(fn){
-    const [{id,name},{address},{company}] =  await fn;
-    return console.log(id,name,address,company)
-
-}
-getAdressCompany(getData(dataSource))
-
- function loadDataCards(cardsElements,tableElement,mediaCardEl) {
+async function  loadDataCards(cardsElements,tableElement,mediaCardEl,dataUsers) {
+  const allData  = await dataUsers;
 
   tableElement.addEventListener('click', el => {
     const rowValue = el.target.parentNode.innerText[0]
 
+    const [{id,name,address,company}]= allData.filter(user =>{
+       if(user.id == rowValue) return user;
+    });
+    console.log('test',id, name, address,company)
+
     for (var card = 0; card < cardsElements.length; card++) {
       if (cardsElements[card].id== 'company'){
-
-        document.getElementById('name-card').innerHTML =  rowValue;
-        // id="card-company"
-        // id="catchPhrase"
-
+        document.getElementById('name-card2').innerHTML = company.name;
+        document.getElementById('catchPhrase').innerHTML = company.catchPhrase;
+        document.getElementById('bs').innerHTML = company.bs;
       } else {
-        document.getElementById('name-card2').innerHTML = rowValue;
+        document.getElementById('name-card').innerHTML = name;
         for (var media = 0; media < mediaCardEl.length; media++) {
-
           if(mediaCardEl[media].id =='card-address'){
-
-            mediaCardEl[media].children[0].innerHTML = mediaCardEl[media].children[0].id
-            mediaCardEl[media].children[1].innerHTML = mediaCardEl[media].children[1].id
-            mediaCardEl[media].children[2].innerHTML = mediaCardEl[media].children[2].id
-            mediaCardEl[media].children[3].innerHTML = mediaCardEl[media].children[3].id
-
+            mediaCardEl[media].children[0].innerHTML = address.street
+            mediaCardEl[media].children[1].innerHTML = address.suite
+            mediaCardEl[media].children[2].innerHTML = address.city
+            mediaCardEl[media].children[3].innerHTML = address.zipcode
           }
 
         }
@@ -84,7 +67,7 @@ getAdressCompany(getData(dataSource))
 
  }
 
- loadDataCards(cards,tbody,mediaCards)
+ loadDataCards(cards,tbody,mediaCards,dataUsers)
 
 
 
