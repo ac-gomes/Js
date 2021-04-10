@@ -6,8 +6,7 @@ var tbody = document.querySelector("#table-content");
 var cards = document.getElementsByClassName('card');
 var mediaCards = document.getElementsByClassName('mediaCard');
 var cardUserName = document.getElementById('name-card');
-var btnNext = document.getElementsByClassName('next');
-var btnPrevious = document.getElementsByClassName('previous');
+var btnNexPrevious = document.querySelectorAll('.actions');
 
 
 async function getData(url) {
@@ -37,7 +36,7 @@ async function loadDataTable(fn){
 
 async function loadDataCard(cardsElements,mediaCardEl,data){
   let UserData = await data;
-  let [{name,address,company}] = UserData;
+  let [{username,address,company}] = UserData;
 
   if (cardUserName.innerText == 'Titulo do Card'){
     for (var card = 0; card < cardsElements.length; card++) {
@@ -46,7 +45,7 @@ async function loadDataCard(cardsElements,mediaCardEl,data){
         document.getElementById('catchPhrase').innerHTML = company.catchPhrase;
         document.getElementById('bs').innerHTML = company.bs;
       } else {
-        document.getElementById('name-card').innerHTML = name;
+        document.getElementById('name-card').innerHTML = username;
         for (var media = 0; media < mediaCardEl.length; media++) {
           if(mediaCardEl[media].id =='card-address'){
             mediaCardEl[media].children[0].innerHTML = address.street
@@ -67,7 +66,7 @@ async function filterUserbyClick(tableElement,cardsElements,mediaCardEl,data){
   tableElement.addEventListener('click', el => {
     const rowValue = el.target.parentNode.innerText[0]
 
-   let [{name,address,company}] = UserData.filter(user =>{
+   let [{username,address,company}] = UserData.filter(user =>{
        if(user.id == rowValue) return user;
     });
 
@@ -77,7 +76,7 @@ async function filterUserbyClick(tableElement,cardsElements,mediaCardEl,data){
         document.getElementById('catchPhrase').innerHTML = company.catchPhrase;
         document.getElementById('bs').innerHTML = company.bs;
       } else {
-        document.getElementById('name-card').innerHTML = name;
+        document.getElementById('name-card').innerHTML = username;
         for (var media = 0; media < mediaCardEl.length; media++) {
           if(mediaCardEl[media].id =='card-address'){
             mediaCardEl[media].children[0].innerHTML = address.street
@@ -92,3 +91,50 @@ async function filterUserbyClick(tableElement,cardsElements,mediaCardEl,data){
 
 }
 filterUserbyClick(tbody,cards,mediaCards,dataUsers);
+
+
+async function next(nextPreviousBtn,cardsElements,mediaCardEl,data){
+  let dados = await data;
+  nextPreviousBtn.forEach(btn => {
+    btn.addEventListener('click', action =>{
+      if(action.target.className.split(' ')[1] =='next'){
+
+        const actualUserName =document.getElementById('name-card').innerText;
+        const filterNextUser = dados.findIndex(user => user.username ===actualUserName);
+        console.log('mover para frente');
+        let {username,address,company} = nextUser(dados,filterNextUser);
+        //document.getElementById('name-card').innerHTML = username;
+
+          for (var card = 0; card < cardsElements.length; card++) {
+            if (cardsElements[card].id== 'company'){
+              document.getElementById('name-card2').innerHTML = company.name;
+              document.getElementById('catchPhrase').innerHTML = company.catchPhrase;
+              document.getElementById('bs').innerHTML = company.bs;
+            } else {
+              document.getElementById('name-card').innerHTML = username;
+              for (var media = 0; media < mediaCardEl.length; media++) {
+                if(mediaCardEl[media].id =='card-address'){
+                  mediaCardEl[media].children[0].innerHTML = address.street
+                  mediaCardEl[media].children[1].innerHTML = address.suite
+                  mediaCardEl[media].children[2].innerHTML = address.city
+                  mediaCardEl[media].children[3].innerHTML = address.zipcode
+                }
+              }
+            }
+          }
+        console.log(address);
+      }
+    });
+  });
+}
+
+next(btnNexPrevious,cards,mediaCards,dataUsers)
+//Previus(btnNexPrevious,dataUsers)
+
+function nextUser(data, current){
+
+  if (current === (data.length - 1)){
+    return;
+  }
+  return data[++current]
+}
