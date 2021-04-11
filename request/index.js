@@ -64,7 +64,9 @@ loadDataTable(dataUsers);
 async function filterUserbyClick(tableElement,cardsElements,mediaCardEl,data){
   const UserData = await data
   tableElement.addEventListener('click', el => {
-    const rowValue = el.target.parentNode.innerText[0]
+    //el.target.parentNode.innerText retorna a tr inteira
+    const rowValue = el.target.parentNode.querySelectorAll('td')[0].innerText;
+    console.log(rowValue);
 
    let [{username,address,company}] = UserData.filter(user =>{
        if(user.id == rowValue) return user;
@@ -87,11 +89,9 @@ async function filterUserbyClick(tableElement,cardsElements,mediaCardEl,data){
         }
       }
     }
-  })
-
+  });
 }
 filterUserbyClick(tbody,cards,mediaCards,dataUsers);
-
 
 async function next(nextPreviousBtn,cardsElements,mediaCardEl,data){
   let dados = await data;
@@ -100,41 +100,89 @@ async function next(nextPreviousBtn,cardsElements,mediaCardEl,data){
       if(action.target.className.split(' ')[1] =='next'){
 
         const actualUserName =document.getElementById('name-card').innerText;
-        const filterNextUser = dados.findIndex(user => user.username ===actualUserName);
+        const filterNextUser = dados.findIndex(user => user.username === actualUserName);
         console.log('mover para frente');
         let {username,address,company} = nextUser(dados,filterNextUser);
         //document.getElementById('name-card').innerHTML = username;
 
-          for (var card = 0; card < cardsElements.length; card++) {
-            if (cardsElements[card].id== 'company'){
-              document.getElementById('name-card2').innerHTML = company.name;
-              document.getElementById('catchPhrase').innerHTML = company.catchPhrase;
-              document.getElementById('bs').innerHTML = company.bs;
-            } else {
-              document.getElementById('name-card').innerHTML = username;
-              for (var media = 0; media < mediaCardEl.length; media++) {
-                if(mediaCardEl[media].id =='card-address'){
-                  mediaCardEl[media].children[0].innerHTML = address.street
-                  mediaCardEl[media].children[1].innerHTML = address.suite
-                  mediaCardEl[media].children[2].innerHTML = address.city
-                  mediaCardEl[media].children[3].innerHTML = address.zipcode
-                }
+        for (var card = 0; card < cardsElements.length; card++) {
+          if (cardsElements[card].id== 'company'){
+            document.getElementById('name-card2').innerHTML = company.name;
+            document.getElementById('catchPhrase').innerHTML = company.catchPhrase;
+            document.getElementById('bs').innerHTML = company.bs;
+          } else {
+            document.getElementById('name-card').innerHTML = username;
+            for (var media = 0; media < mediaCardEl.length; media++) {
+              if(mediaCardEl[media].id =='card-address'){
+                mediaCardEl[media].children[0].innerHTML = address.street
+                mediaCardEl[media].children[1].innerHTML = address.suite
+                mediaCardEl[media].children[2].innerHTML = address.city
+                mediaCardEl[media].children[3].innerHTML = address.zipcode
               }
             }
           }
-        console.log(address);
+        }
       }
     });
   });
 }
 
-next(btnNexPrevious,cards,mediaCards,dataUsers)
-//Previus(btnNexPrevious,dataUsers)
-
 function nextUser(data, current){
-
-  if (current === (data.length - 1)){
-    return;
+  //Parar a iteração quando chegar no ultimo item do arrey
+  if (current === (data.length-1)){
+    return data[data.length-1]
+  }else{
+    return data[++current]
   }
-  return data[++current]
 }
+
+next(btnNexPrevious,cards,mediaCards,dataUsers)
+
+async function previus(nextPreviousBtn,cardsElements,mediaCardEl,data){
+  let dados = await data;
+  nextPreviousBtn.forEach(btn => {
+    btn.addEventListener('click', action =>{
+      if(action.target.className.split(' ')[1] =='previous'){
+
+        const actualUserName = document.getElementById('name-card').innerText;
+        console.log(actualUserName);
+        const filterPreviusUser = dados.findIndex(user => user.username === actualUserName);
+        console.log('mover para trás');
+        let {username,address,company} = previusUser(dados,filterPreviusUser);
+        //document.getElementById('name-card').innerHTML = username;
+
+        for (var card = 0; card < cardsElements.length; card++) {
+          if (cardsElements[card].id== 'company'){
+            document.getElementById('name-card2').innerHTML = company.name;
+            document.getElementById('catchPhrase').innerHTML = company.catchPhrase;
+            document.getElementById('bs').innerHTML = company.bs;
+          } else {
+            document.getElementById('name-card').innerHTML = username;
+            for (var media = 0; media < mediaCardEl.length; media++) {
+              if(mediaCardEl[media].id =='card-address'){
+                mediaCardEl[media].children[0].innerHTML = address.street
+                mediaCardEl[media].children[1].innerHTML = address.suite
+                mediaCardEl[media].children[2].innerHTML = address.city
+                mediaCardEl[media].children[3].innerHTML = address.zipcode
+              }
+            }
+          }
+        }
+      }
+    });
+  });
+}
+
+function previusUser(data, current){
+  //Parar a iteração quando chegar no ultimo item do arrey
+  if (current === 0){
+    return data[0]
+  }else{
+    return data[--current]
+  }
+}
+
+previus(btnNexPrevious,cards,mediaCards,dataUsers)
+
+/// destacar a linha/ID atual selecionado pelo cursor ou botões com acor abaixo,
+//background-color:rgb(123, 248, 171)
