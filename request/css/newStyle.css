@@ -5,7 +5,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body{
   display: grid;
   font-family: 'Open Sans', sans-serif;
@@ -14,33 +13,29 @@ body{
   grid-template-columns: auto auto auto;
   grid-template-rows: auto;
 }
-.o-aside {
+.cards-area {
   grid-area: aside;
-  padding: 1rem;
+  padding:1em 0.9em;
 }
-.o-main {
+.table-area {
   grid-area: main;
-  padding: 1rem 2em;
+  padding: 1em;
 }
-.o-aside, .o-main{
+.cards-area, .table-area{
   background: #105469;
 }
-
 .about-area{
   background:#012B39;
   border-radius: 0.25em;
-  color:yellow;
-  margin:10px auto 0;
-  padding: 1rem;
-
+  color:white;
+  margin-right: 10px ;
+  margin-top: 15px ;
+  padding: 2.2rem;
 }
-
-
 /* Estilo dos Cards */
 .content-cards{
   display: block;
-  align-content: center;
-  align-items: center;
+  margin-left: 5px;
   padding: 0 5px 0.85em;
 }
 .card{
@@ -63,7 +58,6 @@ body{
 }
 .top-card {
   padding: 17px;
-
  }
  .bottomCard {
   padding: 15px;
@@ -76,19 +70,16 @@ body{
   border: none;
   color: #f35ca2;
 }
-
 .actions:hover{
   color:#f31d81;
 }
 /* Fim do estilo do Card */
 
 /* Inicio tabela */
-
 table {
   background: #012B39;
   border-radius: 0.25em;
   border-collapse: collapse;
-  padding: 1rem;
 }
 th {
   border-bottom: 1px solid #364043;
@@ -101,6 +92,7 @@ th {
 td {
   color: #fff;
   font-weight: 400;
+  width: inherit;
   padding: 0.70em 0.8em;
 }
 tbody tr {
@@ -110,6 +102,3 @@ tbody tr:hover {
   background: #014055;
 }
 /* fim estilo da tabela */
-
-
-
