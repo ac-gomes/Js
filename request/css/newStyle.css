@@ -45,10 +45,54 @@ body{
   width: 300px;
 }
 .mediaCard{
-  background:#377297d7 center/cover;
+  position: relative;
+  display: inline-block;
+  color:white;
+  background:#377297d7;
   height: 150px;
   width: 100%;
-  font-size: 17;
+  padding: 20px 0 10px 15px;
+
+}
+
+label {
+  top:0;
+  left:0;
+  padding: 3px 15px 0;
+  text-shadow: 0 1px 0 rgba(19,74,70,.4);
+  background: #7AB893;
+  transition: all .3s ease-in-out;
+  border-radius: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+input{
+  position: relative;
+  top: 0;
+  left: 0;
+  height:25px;
+  padding: 10px 1px 3px 15px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  color: transparent;
+  background-color: transparent;
+  border-width:0px;
+  margin:0;
+  outline: 0;
+  text-indent: 90px;
+  transition: all .3s ease-in-out;
+}
+/* ESTE EFEITO SERÁ SOMENTE NO CLITE E NOS BOTÕES NEXT E PREV */
+input:active {
+  color:#E2B842;
+  text-indent: 0;
+  background-color: transparent;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+label {
+  transform: translateX(-100%);
 }
 .name {
   color:#E2B842;

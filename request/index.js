@@ -48,10 +48,10 @@ async function loadDataCard(cardsElements,mediaCardEl,data){
         document.getElementById('name-card').innerHTML = username;
         for (var media = 0; media < mediaCardEl.length; media++) {
           if(mediaCardEl[media].id =='card-address'){
-            mediaCardEl[media].children[0].innerHTML = address.street
-            mediaCardEl[media].children[1].innerHTML = address.suite
-            mediaCardEl[media].children[2].innerHTML = address.city
-            mediaCardEl[media].children[3].innerHTML = address.zipcode
+            mediaCardEl[media].children[1].value = address.street
+            mediaCardEl[media].children[3].value = address.suite
+            mediaCardEl[media].children[5].value = address.city
+            mediaCardEl[media].children[7].value = address.zipcode
           }
         }
       }
@@ -65,8 +65,7 @@ async function filterUserbyClick(tableElement,cardsElements,mediaCardEl,data){
   const UserData = await data
   tableElement.addEventListener('click', el => {
     //el.target.parentNode.innerText retorna a tr inteira
-    const rowValue = el.target.parentNode.querySelectorAll('td')[0].innerText;
-    console.log(rowValue);
+   const rowValue = el.target.parentNode.querySelectorAll('td')[0].innerText;
 
    let [{username,address,company}] = UserData.filter(user =>{
        if(user.id == rowValue) return user;
@@ -81,10 +80,10 @@ async function filterUserbyClick(tableElement,cardsElements,mediaCardEl,data){
         document.getElementById('name-card').innerHTML = username;
         for (var media = 0; media < mediaCardEl.length; media++) {
           if(mediaCardEl[media].id =='card-address'){
-            mediaCardEl[media].children[0].innerHTML = address.street
-            mediaCardEl[media].children[1].innerHTML = address.suite
-            mediaCardEl[media].children[2].innerHTML = address.city
-            mediaCardEl[media].children[3].innerHTML = address.zipcode
+            mediaCardEl[media].children[1].value = address.street
+            mediaCardEl[media].children[3].value = address.suite
+            mediaCardEl[media].children[5].value = address.city
+            mediaCardEl[media].children[7].value = address.zipcode
           }
         }
       }
@@ -114,10 +113,10 @@ async function next(nextPreviousBtn,cardsElements,mediaCardEl,data){
             document.getElementById('name-card').innerHTML = username;
             for (var media = 0; media < mediaCardEl.length; media++) {
               if(mediaCardEl[media].id =='card-address'){
-                mediaCardEl[media].children[0].innerHTML = address.street
-                mediaCardEl[media].children[1].innerHTML = address.suite
-                mediaCardEl[media].children[2].innerHTML = address.city
-                mediaCardEl[media].children[3].innerHTML = address.zipcode
+                mediaCardEl[media].children[1].value = address.street
+                mediaCardEl[media].children[3].value = address.suite
+                mediaCardEl[media].children[5].value = address.city
+                mediaCardEl[media].children[7].value = address.zipcode
               }
             }
           }
@@ -160,10 +159,10 @@ async function previus(nextPreviousBtn,cardsElements,mediaCardEl,data){
             document.getElementById('name-card').innerHTML = username;
             for (var media = 0; media < mediaCardEl.length; media++) {
               if(mediaCardEl[media].id =='card-address'){
-                mediaCardEl[media].children[0].innerHTML = address.street
-                mediaCardEl[media].children[1].innerHTML = address.suite
-                mediaCardEl[media].children[2].innerHTML = address.city
-                mediaCardEl[media].children[3].innerHTML = address.zipcode
+                mediaCardEl[media].children[1].value = address.street
+                mediaCardEl[media].children[3].value = address.suite
+                mediaCardEl[media].children[5].value = address.city
+                mediaCardEl[media].children[7].value = address.zipcode
               }
             }
           }
