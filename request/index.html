@@ -5,76 +5,84 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <section class="itens">
+<!-- <header class="o-header">Meu cabeçalho</header> -->
+<aside class="cards-area">
+  <div class="content-cards">
+    <!--Criar card aqui-->
+    <div class="card" id="address">
+      <div class="top-card">
+        <h3 class="name" id="name-card">Titulo do Card</h3>
+        <h4 class="user-name">Address</h4>
+      </div>
+      <div class="mediaCard area-address" id="card-address">
 
-    <div class="content box-table">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>User Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Website</th>
-          </tr>
-        </thead>
-        <tbody id="table-content"></tbody>
-      </table>
-    </div>
+          <label for="street">Street</label>
+          <input type="text" class="adress-input" id="street"/>
+          <label for="suite">Suite</label>
+          <input type="text" class="adress-input" id="suite"/>
+          <label for="city">City</label>
+          <input type="text" class="adress-input" id="city"/>
+          <label for="street">Zipcode</label>
+          <input type="text" class="adress-input" id="zipcode"/>
 
-<div class="content">
-  <!--Criar card aqui-->
-  <div class="card" id="address">
-    <div class="top-card">
-      <h3 class="name" id="name-card">Titulo do Card</h3>
-      <span class="user-name">Address</span>
-    </div>
+      </div>
 
-    <div class="mediaCard area-address" id="card-address">
-      <label id="street"></label>
-      <label id="suite"></label>
-      <label id="city"></label>
-      <label id="zipcode"></label>
-    </div>
-
-    <div class="bottomCard">
-      <div class="actionsCard">
-        <button class="actions previous">Anterior</button>
-        <button class="actions next">Próximo</button>
+      <div class="bottomCard">
+        <div class="actionsCard">
+          <button class="actions previous">Anterior</button>
+          <button class="actions next">Próximo</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="content box-card-1">
-  <!--Criar card aqui-->
-  <div class="card" id="company">
-    <div class="top-card">
-      <h3 class="name" id="name-card2">Titulo do Card</h3>
-      <span class="user-name"id="card-company">Company</span>
-    </div>
+  <div class="content-cards">
+    <!--Criar card aqui-->
+    <div class="card" id="company">
+      <div class="top-card">
+        <h3 class="name" id="name-card2">Titulo do Card</h3>
+        <h4 class="user-name" id="card-company">Company</h4>
+      </div>
 
-    <div class="mediaCard area-company">
-      <p class="bottomText" id="bs">bs</p>
-      <p class="bottomText" id="catchPhrase">catchPhrase</p>
-    </div>
+      <div class="mediaCard area-company">
+        <p class="bottomText" id="bs">bs</p>
+        <p class="bottomText" id="catchPhrase">catchPhrase</p>
+      </div>
 
-    <div class="bottomCard">
-      <div class="actionsCard">
-        <button class="actions previous">Anterior</button>
-        <button class="actions next">Próximo</button>
+      <div class="bottomCard">
+        <div class="actionsCard">
+          <button class="actions previous">Anterior</button>
+          <button class="actions next">Próximo</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</aside>
 
-</section>
-
+<main class="table-area">
+  <div class="content box-table">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>User Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Website</th>
+        </tr>
+      </thead>
+      <tbody id="table-content"></tbody>
+    </table>
+  </div>
+  <div class="about-area">aqui será a ares sobre</div>
+</main>
+<!-- <footer class="o-footer">Rodapé</footer> -->
   <script src="index.js"></script>
 </body>
 </html>
