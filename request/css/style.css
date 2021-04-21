@@ -76,7 +76,7 @@ input{
 .name {
   color:#E2B842;
 }
-.user-name{
+.name-card{
   color:#5FB6D9;
 }
 .top-card {
@@ -132,5 +132,6 @@ tbody tr {
 }
 tbody tr:hover {
   background: #014055;
+  cursor: pointer;
 }
 /* fim estilo da tabela */
