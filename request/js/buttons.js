@@ -1,6 +1,8 @@
 import loadDataCard from "./crads.js";
+import hoverSelectedUser from "./utils.js";
 
 const selectedButton = async (
+  trEl,
   cardsEl,
   inputsEl,
   buttons,
@@ -8,12 +10,15 @@ const selectedButton = async (
   data
 ) => {
   let userData = await data;
+
   for (let btn of buttons) {
     btn.addEventListener('click', action =>{
       let actualUserName = document.getElementById('user-name')
       const userIndex = userData.findIndex(user => user.username === actualUserName.innerText);
+
       if(action.target.className.split(' ')[1] =='next'){
         let {username,address,company} = nextUser(userData,userIndex);
+        hoverSelectedUser(trEl,username);
         loadDataCard(
           cardsEl,
           inputsEl,
