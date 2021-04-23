@@ -18,7 +18,8 @@ const selectedButton = async (
 
       if(action.target.className.split(' ')[1] =='next'){
         let {username,address,company} = nextUser(userData,userIndex);
-        hoverSelectedUser(trEl,username);
+
+        hoverSelectedUser(trEl,username,actualUserName);
         loadDataCard(
           cardsEl,
           inputsEl,
@@ -29,6 +30,7 @@ const selectedButton = async (
         );
       } else {
         let {username,address,company} = previusUser(userData,userIndex);
+        hoverSelectedUser(trEl,username,actualUserName);
         loadDataCard(
           cardsEl,
           inputsEl,

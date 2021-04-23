@@ -4,7 +4,9 @@ import loadDataCard from "./crads.js";
 import Buttons from "./buttons.js";
 
 
-let url ='https://jsonplaceholder.typicode.com/users'
+let url = "../data/dataSource.json"
+// let url ='https://jsonplaceholder.cypress.io/users'
+//let url ='https://jsonplaceholder.typicode.com/users'
 
 const trEl = document.getElementsByClassName('tr-rows');//remover esse
 const tableContent = document.querySelector("#table-content");// ou remover esse

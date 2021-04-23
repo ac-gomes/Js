@@ -134,4 +134,8 @@ tbody tr:hover {
   background: #014055;
   cursor: pointer;
 }
+.trSelected{
+  transition: background 0.25s ease;
+  background: #014055;
+}
 /* fim estilo da tabela */

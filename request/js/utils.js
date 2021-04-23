@@ -1,10 +1,18 @@
-const hoverSelectedUser = (trEl,user) => {
+const hoverSelectedUser = (trEl, nextUser, actualUser) => {
+ [...trEl].map(el => {
+    if(nextUser == el.querySelectorAll('td')[2].innerText){
+        el.classList.toggle('trSelected');
+    }
+    if(actualUser.innerText == el.querySelectorAll('td')[2].innerText){
+      el.classList.toggle('trSelected');
+      el.classList.remove('trSelected');
+    }
+  });
 
- let userfill = [...trEl].map(el => el.querySelectorAll('td')[2].innerText)
- .filter(filteredUser => user == filteredUser);
-  console.log(userfill[0]);
+console.log('atual: ',actualUser.innerText, 'proximo: ', nextUser);
+console.log(trEl);
 }
+
 export default hoverSelectedUser;
 
-//Marcar o usuario atual na tabela quando o botão next e previus forem pressionados
 
