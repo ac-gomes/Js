@@ -54,6 +54,6 @@ Buttons.selectedButton(
   getUsers(url)
 );
 
-window.addEventListener("load",_ =>{
+window.addEventListener("load",_ => {
   document.getElementById('spinner-wrapper').style.display = "none";
 })
