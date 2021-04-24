@@ -3,21 +3,19 @@ import loadDataTable from "./loadData.js";
 import loadDataCard from "./crads.js";
 import Buttons from "./buttons.js";
 
-
 let url = "../data/dataSource.json"
-// let url ='https://jsonplaceholder.cypress.io/users'
 //let url ='https://jsonplaceholder.typicode.com/users'
 
-const trEl = document.getElementsByClassName('tr-rows');//remover esse
-const tableContent = document.querySelector("#table-content");// ou remover esse
+const trEl = document.getElementsByClassName('tr-rows');
+const tableContent = document.querySelector("#table-content");
 const cards = document.getElementsByClassName('card');
 const addressInputs = document.getElementsByClassName('address-input');
 const companyTextLabel = document.getElementsByClassName('company-label');
 const btnNexPrevious = document.querySelectorAll('.actions');
 
-
 //Initialize
 (async () => {
+
   let data = await getUsers(url);
   let [{username, address, company}] = data;
 
@@ -55,4 +53,12 @@ Buttons.selectedButton(
   companyTextLabel,
   getUsers(url)
 );
+
+window.addEventListener("load",_ =>{
+  document.getElementById('spinner-wrapper').style.display = "none";
+})
+
+
+
+
 
