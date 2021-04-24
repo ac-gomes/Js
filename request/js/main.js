@@ -57,8 +57,3 @@ Buttons.selectedButton(
 window.addEventListener("load",_ =>{
   document.getElementById('spinner-wrapper').style.display = "none";
 })
-
-
-
-
-
