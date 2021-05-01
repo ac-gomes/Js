@@ -2,6 +2,7 @@ import React from 'react';
 
 import {Text, View } from 'react-native';
 import Container from '../../components/Common/Container';
+import CustomButton from '../../components/Common/CustomButton';
 import Input from '../../components/Common/Input';
 
 const Login = () => {
@@ -23,6 +24,17 @@ const Login = () => {
       icon={<Text>HIDE</Text>}
       iconPosition ='right'
     />
+
+    <CustomButton
+      secondary
+      title='Submit'
+      loading={true}
+      disabled={true}
+     />
+    <CustomButton secondary loading={true} title='Click Me'/>
+    <CustomButton primary title='Submit' loading={true} disabled={true}/>
+    <CustomButton danger title='Submit'/>
+
   </Container>
   );
 };
