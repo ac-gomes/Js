@@ -60,3 +60,4 @@ buck-out/
 
 #my files
 .env
+assets/
