@@ -12,6 +12,8 @@ const RegisterComponent = ({
   onSubmit,
   onChange,
   form,
+  loading,
+  error,
   errors,
 }) => {
   const {navigate} = useNavigation();
@@ -27,6 +29,8 @@ const RegisterComponent = ({
         <Text style={styles.subTitle}>Create a free account</Text>
 
         <View style={styles.form}>
+          {/* de onde esta vindo null no código abaixo */}
+          {/* {error.error && <Text>{error.error}</Text>} */}
 
           <Input
             label='Username'
@@ -80,7 +84,13 @@ const RegisterComponent = ({
             }}
           />
 
-          <CustomButton onPress={onSubmit} primary title='Submit'/>
+          <CustomButton
+            loading={loading}
+            onPress={onSubmit}
+            disabled={loading}
+            primary
+            title='Submit'
+          />
 
           <View style={styles.createSection}>
             <Text style={styles.infoText}>Already have a account?</Text>
