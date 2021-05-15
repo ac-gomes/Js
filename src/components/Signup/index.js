@@ -1,12 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react'
+import React,{useState} from 'react'
 
-import {Text, View, Image, TouchableOpacity } from 'react-native';
+import {Text, View, Image} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import Container from '../../components/Common/Container';
 import CustomButton from '../../components/Common/CustomButton';
 import Input from '../../components/Common/Input';
-import styles from './styles';
 import {LOGIN} from '../../constants/routeNames';
+import styles from './styles';
 
 const RegisterComponent = ({
   onSubmit,
@@ -19,9 +20,10 @@ const RegisterComponent = ({
   const {navigate} = useNavigation();
     return(
     <Container>
-      <Image height={70} width={70}
-       source={require('../../assets/images/register2.png')}
-       style={styles.logoImage}
+      <Image height={70}
+        width={70}
+        source={require('../../assets/images/register2.png')}
+        style={styles.logoImage}
       />
 
       <View>
@@ -30,13 +32,13 @@ const RegisterComponent = ({
 
         <View style={styles.form}>
           {/* de onde esta vindo null no código abaixo */}
-          {/* {error.error && <Text>{error.error}</Text>} */}
+          {error.error && <Text>{error.error}</Text>}
 
           <Input
             label='Username'
             iconPosition ='right'
             placeholder="Enter Username"
-            error={errors.userName}
+            error={errors.userName || error?.username?.[0]}
             onChangeText={(value)=>{
               onChange({name: 'userName', value});
             }}
@@ -46,7 +48,7 @@ const RegisterComponent = ({
             label='First name'
             iconPosition ='right'
             placeholder='Enter First name'
-            error={errors.firstName}
+            error={errors.firstName || error?.first_name?.[0]}
             onChangeText={(value)=>{
             onChange({name: 'firstName', value});
             }}
@@ -56,7 +58,7 @@ const RegisterComponent = ({
             label='Last name'
             iconPosition ='right'
             placeholder='Enter Last name'
-            error={errors.lastName}
+            error={errors.lastName || error?.last_name?.[0]}
             onChangeText={(value)=>{
               onChange({name: 'lastName', value});
             }}
@@ -66,7 +68,7 @@ const RegisterComponent = ({
             label='Email'
             iconPosition ='right'
             placeholder="Enter Email"
-            error={errors.email}
+            error={errors.email || error?.last_name?.[0]}
             onChangeText={(value)=>{
               onChange({name: 'email', value});
             }}
@@ -78,12 +80,12 @@ const RegisterComponent = ({
             secureTextEntry={true}
             icon={<Text>Show</Text>}
             iconPosition ='right'
-            error={errors.password}
+            error={errors.password || error?.password?.[0]}
             onChangeText={(value)=>{
               onChange({name: 'password', value});
             }}
           />
-
+          {console.log('error:', error)}
           <CustomButton
             loading={loading}
             onPress={onSubmit}

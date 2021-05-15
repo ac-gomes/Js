@@ -14,8 +14,8 @@ const GlobalProvider=({children}) => {
   );
 
   return(
-    <GlobalContext.Provider value={
-      {authState, contactsState, authDispatch, contactsDispatch}}>
+    <GlobalContext.Provider
+    value={{authState, contactsState, authDispatch, contactsDispatch}}>
       {children}
     </GlobalContext.Provider>
   );

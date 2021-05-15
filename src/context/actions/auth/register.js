@@ -1,18 +1,22 @@
-import { REGISTER_FAIL, REGISTER_LOADING, REGISTER_SUCCESS } from "../../../constants/actionTypes";
+import {
+  REGISTER_FAIL,
+  REGISTER_LOADING,
+  REGISTER_SUCCESS,
+} from "../../../constants/actionTypes";
 import axiosInstance from "../../../helpers/axiosInterceptor"
 
 export default ({
   email,
   password,
-  username,
+  userName: username,
   firstName: first_name,
-  lastName: last_name
-}) =>dispatch => {
+  lastName: last_name,
+}) => (dispatch) => {
   dispatch({
-    type: REGISTER_LOADING
-  })
-
-  axiosInstance.post('auth/register', {
+    type: REGISTER_LOADING,
+  });
+  axiosInstance
+  .post('auth/register', {
   email,
   password,
   username,
@@ -26,11 +30,21 @@ export default ({
     });
   })
   .catch((err) => {
+    // console.log('err od register >> ', err)
     dispatch({
       type: REGISTER_FAIL,
-      payload: err.response
-      ? err.response.data
-      : {error: 'Something went wrong, try again'}
+      payload: err.response ? err.response.data : {error: 'Something went wrong, try agin'},
     });
   });
 };
+
+/*
+A mensagem de erro está quebrando a tela de registro pq
+o ternario no payload acima quando o registro falha não esta pegando o
+objeto error: msg... como o state não é atualizado com um objeto
+atela de login quebra pois espera receber um objeto
+*/
+
+// err.response
+// ? err.response.data
+// : {error: 'Something went wrong, try agin'},
