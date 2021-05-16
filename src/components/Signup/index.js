@@ -31,8 +31,8 @@ const RegisterComponent = ({
         <Text style={styles.subTitle}>Create a free account</Text>
 
         <View style={styles.form}>
-          {/* de onde esta vindo null no código abaixo */}
-          {error.error && <Text>{error.error}</Text>}
+          {/* Verificar pq o state não atualizou o erro */}
+          {error?.error && <Text>{error?.error}</Text>}
 
           <Input
             label='Username'
@@ -68,7 +68,7 @@ const RegisterComponent = ({
             label='Email'
             iconPosition ='right'
             placeholder="Enter Email"
-            error={errors.email || error?.last_name?.[0]}
+            error={errors.email || error?.email?.[0]}
             onChangeText={(value)=>{
               onChange({name: 'email', value});
             }}

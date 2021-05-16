@@ -1,34 +1,42 @@
-
+import { useFocusEffect } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { useContext } from 'react';
 import { useState } from 'react';
 import RegisterComponent from '../../components/Signup';
-import register from '../../context/actions/auth/register';
+import { LOGIN } from '../../constants/routeNames';
+import register, {clearAuthState} from '../../context/actions/auth/register';
 import {GlobalContext} from '../../context/Provider';
 import axiosInstance from '../../helpers/axiosInterceptor';
 
-
 const Register = () => {
   const [form, setForm] = useState({});
+  const {navigate} = useNavigation();
   const [errors, setErrors] = useState({});
   const {
     authDispatch,
     authState:{error, loading, data},
   } = useContext(GlobalContext);
 
-  // console.log('form :>> ', form);
-  console.log('authState ;', error, loading, data);
+  React.useEffect(() => {
+    if(data){
+      navigate(LOGIN)
+    }
+  }, [data]);
 
-  // React.useEffect(() =>{
-  //   axiosInstance.get('/contacts').catch((err) =>{
-  //     console.log('err', err.response)
-  //   });
-  // }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      if(data || error){
+        clearAuthState()(authDispatch);
+      }
+    }, [data, error])
+  );
 
-  const onChange = ({name, value}) =>{
+  const onChange = ({name, value}) => {
     setForm({...form, [name]: value });
     //aqui são validados os valores dos campos
     //verificar se a senha tem 6 caracters, melhorar isso ta orrivel
+
   if (value !== '') {
     if (name === 'password') {
       if (value.length < 6) {

@@ -1,15 +1,14 @@
 import {
+  CLEAR_AUTH_STATE,
   REGISTER_FAIL,
   REGISTER_LOADING,
-  REGISTER_SUCCESS
+  REGISTER_SUCCESS,
 } from "../../constants/actionTypes";
 
 const auth = (state, {type, payload}) => {
 
   switch (type) {
     case REGISTER_LOADING:
-    console.log('type ', type)
-
       return {
         ...state,
         loading: true,
@@ -27,6 +26,14 @@ const auth = (state, {type, payload}) => {
         ...state,
         loading: false,
         error: payload,
+      };
+
+    case CLEAR_AUTH_STATE:
+      return {
+        ...state,
+        loading: false,
+        data: null,
+        error: null,
       };
 
     default:

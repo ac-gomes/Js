@@ -2,8 +2,15 @@ import {
   REGISTER_FAIL,
   REGISTER_LOADING,
   REGISTER_SUCCESS,
+  CLEAR_AUTH_STATE,
 } from "../../../constants/actionTypes";
 import axiosInstance from "../../../helpers/axiosInterceptor"
+
+export const clearAuthState = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_AUTH_STATE,
+  })
+}
 
 export default ({
   email,
@@ -30,10 +37,11 @@ export default ({
     });
   })
   .catch((err) => {
-    // console.log('err od register >> ', err)
     dispatch({
       type: REGISTER_FAIL,
-      payload: err.response ? err.response.data : {error: 'Something went wrong, try agin'},
+      payload: err.response
+       ? err.response.data
+       : { error: 'Something went wrong, try agin'}
     });
   });
 };
