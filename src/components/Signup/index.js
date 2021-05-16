@@ -7,6 +7,7 @@ import Container from '../../components/Common/Container';
 import CustomButton from '../../components/Common/CustomButton';
 import Input from '../../components/Common/Input';
 import {LOGIN} from '../../constants/routeNames';
+import Message from '../Common/Message';
 import styles from './styles';
 
 const RegisterComponent = ({
@@ -32,7 +33,12 @@ const RegisterComponent = ({
 
         <View style={styles.form}>
           {/* Verificar pq o state não atualizou o erro */}
-          {error?.error && <Text>{error?.error}</Text>}
+          {error?.error && <Message
+            retry
+            danger
+            retryFn={onSubmit}
+            message={error?.error}
+          />}
 
           <Input
             label='Username'
