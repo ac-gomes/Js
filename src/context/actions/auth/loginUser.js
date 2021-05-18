@@ -40,14 +40,3 @@ export default ({password, userName: username}) => (dispatch) => {
     });
   });
 };
-
-/*
-A mensagem de erro está quebrando a tela de registro pq
-o ternario no payload acima quando o registro falha não esta pegando o
-objeto error: msg... como o state não é atualizado com um objeto
-atela de login quebra pois espera receber um objeto
-*/
-
-// err.response
-// ? err.response.data
-// : {error: 'Something went wrong, try agin'},
