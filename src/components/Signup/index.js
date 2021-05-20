@@ -19,6 +19,7 @@ const RegisterComponent = ({
   errors,
 }) => {
   const {navigate} = useNavigation();
+  const [isSecuredEntry, setIsSecuredEntry] = useState(true);
     return(
     <Container>
       <Image height={70}
@@ -83,15 +84,21 @@ const RegisterComponent = ({
           <Input
             label='Password'
             placeholder="Enter Password"
-            secureTextEntry={true}
-            icon={<Text>Show</Text>}
+            secureTextEntry={isSecuredEntry}
+            icon={
+              <TouchableOpacity onPress={() => {
+                setIsSecuredEntry(prev => !prev)
+              }}>
+                <Text>{isSecuredEntry ? 'Show' : 'Hide'}</Text>
+              </TouchableOpacity>
+            }
             iconPosition ='right'
             error={errors.password || error?.password?.[0]}
             onChangeText={(value)=>{
               onChange({name: 'password', value});
             }}
           />
-          {console.log('error:', error)}
+
           <CustomButton
             loading={loading}
             onPress={onSubmit}

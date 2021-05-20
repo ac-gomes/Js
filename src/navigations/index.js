@@ -1,9 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useFocusEffect } from "@react-navigation/native";
 import AuthNavigator from './AuthNavigator';
 import DrawerNavigator from './DrawerNavigator';
 import {GlobalContext} from '../context/Provider';
-import { CountryList } from 'react-native-country-picker-modal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator } from 'react-native';
 
@@ -11,40 +10,33 @@ const AppNavContainer = () => {
   const {
       authState: {isLoggedIn},
     } = useContext(GlobalContext);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const [isAuthenticated, setIsAuthenticated] = useState(isLoggedIn);
   const [authLoaded, setAuthLoaded] = useState(false);
 
   const getUser = async () => {
-
     try {
      const user = await AsyncStorage.getItem('user');
-
-      if(user){
+      console.log(user)
+      if(user) {
         setAuthLoaded(true);
         setIsAuthenticated(true);
       }else {
         setAuthLoaded(true);
         setIsAuthenticated(false);
       }
-    } catch (error) {
-
-    }
-
+    } catch (error) {}
   };
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [isLoggedIn]);
 
   return(
     <>
       {authLoaded ? (
         <NavigationContainer>
-          {isLoggedIn || isAuthenticated ? (
-            <DrawerNavigator />
-          ) : (
-            <AuthNavigator/>
-          )}
+          {isAuthenticated ? <DrawerNavigator /> : <AuthNavigator/>}
         </NavigationContainer>
       ) : (
         <ActivityIndicator />
