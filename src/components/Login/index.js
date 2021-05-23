@@ -9,7 +9,7 @@ import styles from './styles';
 import {REGISTER} from '../../constants/routeNames';
 import Message from '../Common/Message';
 
-const LoginComponent = ({error, onChange, loading , onSubmit}) => {
+const LoginComponent = ({error, form, justSignedUp , onChange, loading , onSubmit}) => {
   const {navigate} = useNavigation();
   const [isSecuredEntry, setIsSecuredEntry] = useState(true);
     return(
@@ -23,8 +23,15 @@ const LoginComponent = ({error, onChange, loading , onSubmit}) => {
         <Text style={styles.title}>Bem Vindo!</Text>
         <Text style={styles.subTitle}>Please Login here</Text>
 
-
         <View style={styles.form}>
+        {justSignedUp && (
+           <Message
+           onDismiss={() => {}}
+           success
+           message="Account created successfully"
+          />
+        )}
+
         {error && !error.error && (
           <Message
            onDismiss={() => {}}
@@ -43,6 +50,7 @@ const LoginComponent = ({error, onChange, loading , onSubmit}) => {
           label='Username'
           iconPosition ='right'
           placeholder="Enter Username"
+          value={form.userName || null }
           onChangeText={(value)=>{
               onChange({name: 'userName', value});
             }}
