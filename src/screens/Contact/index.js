@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useEffect } from 'react';
-import {Text, TouchableOpacity} from 'react-native';
-import Container from '../../components/Common/Container';
+import React, { useEffect, useState } from 'react';
+import {TouchableOpacity} from 'react-native';
 import Icon from '../../components/Common/Icon'
+import ContactsComponent from '../../components/ContactsComponent';
 
 const Contacts = () => {
   const {setOptions, toggleDrawer} = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     setOptions({
@@ -19,10 +20,11 @@ const Contacts = () => {
       });
   },  []);
 
-  return(
-    <Container>
-      <Text>Hi from contacts</Text>
-    </Container>
+  return (
+    <ContactsComponent
+      modalVisible={modalVisible}
+      setModalVisible={setModalVisible}
+    />
   );
 };
 

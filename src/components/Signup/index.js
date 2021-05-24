@@ -33,7 +33,6 @@ const RegisterComponent = ({
         <Text style={styles.subTitle}>Create a free account</Text>
 
         <View style={styles.form}>
-          {/* Verificar pq o state não atualizou o erro */}
           {error?.error && <Message
             retry
             danger
