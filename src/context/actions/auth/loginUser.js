@@ -4,7 +4,7 @@ import {
   LOGIN_LOADING,
   LOGIN_SUCCESS,
 } from "../../../constants/actionTypes";
-import axiosInstance from "../../../helpers/axiosInterceptor"
+import axiosInstance from "../../../helpers/axiosInstance"
 
 // export const clearAuthState = () => (dispatch) => {
 //   dispatch({

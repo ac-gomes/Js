@@ -16,16 +16,17 @@ import logoutUser from '../../context/actions/auth/logoutUser';
 const SideMenu = ({navigation, authDispatch}) => {
   const handleLogout = () => {
     navigation.toggleDrawer();
-    Alert.alert('Logout!','Are you sure you want to logout?',
-    [
+    Alert.alert('Logout!','Are you sure you want to logout?', [
       {
         text:'Cancel',
         onPress: () => {},
       },
+
       {
         text:'OK',
         onPress: () => {
-          logoutUser()(authDispatch);
+          logoutUser() (authDispatch);
+          console.log('sair');
         },
       },
     ]);
@@ -33,14 +34,14 @@ const SideMenu = ({navigation, authDispatch}) => {
 
   const menuItems = [
     {
-      icon: <Icon type="MaterialIcon" size={17} name="settings"></Icon>,
+      icon: <Icon type="MaterialIcon" size={17} name="settings"/>,
       name:'Settings',
       onPress:() => {
         navigation.navigate(SETTINGS);
       },
     },
     {
-      icon: <Icon type="MaterialIcon" size={17} name="logout"></Icon>,
+      icon: <Icon type="MaterialIcon" size={17} name="logout"/>,
       name:'Logout',
       onPress: handleLogout,
     },
@@ -58,7 +59,7 @@ const SideMenu = ({navigation, authDispatch}) => {
         <View style={{paddingHorizontal: 70}}>
           {menuItems.map(({name, icon, onPress}) =>(
             <TouchableOpacity onPress={onPress} key={name} style={styles.item}>
-              {icon}
+              <View style={styles.icon}>{icon}</View>
               <Text style={styles.itemText}>{name}</Text>
             </TouchableOpacity>
           ))}

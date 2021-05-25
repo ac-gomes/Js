@@ -17,4 +17,8 @@ export default StyleSheet.create({
     paddingVertical: 7,
     paddingLeft: 15,
   },
+  icon:{
+
+  },
+
 });
