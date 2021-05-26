@@ -22,7 +22,7 @@ export default ({password, userName: username}) => (dispatch) => {
   username,
   })
   .then((res) => {
-    console.log('res.data>>', res.data);
+
     AsyncStorage.setItem('token', res.data.token);
     AsyncStorage.setItem('user', JSON.stringify(res.data.user));
     dispatch({
@@ -31,7 +31,7 @@ export default ({password, userName: username}) => (dispatch) => {
     });
   })
   .catch((err) => {
-    console.log('err>>', err.response)
+
     dispatch({
       type: LOGIN_FAIL,
       payload: err.response
