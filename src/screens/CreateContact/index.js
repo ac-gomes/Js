@@ -4,11 +4,8 @@ import CreateContactComponent from '../../components/CreateContactComponent';
 
 const CreateContact = () => {
   return(
-    <View>
 
       <CreateContactComponent/>
-
-    </View>
 
   );
 };
