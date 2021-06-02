@@ -6,10 +6,17 @@ import Input from '../Common/Input';
 import CustomButton from '../Common/CustomButton';
 import CountryPicker from 'react-native-country-picker-modal'
 import { DEFAULT_IMAGE_URI } from '../../constants/general';
-import Icon from '../../components/Common/Icon'
 
 
-const CreateContactComponent = () => {
+
+const CreateContactComponent = ({
+  loading,
+  error,
+  onChangeText,
+  setForm,
+  onSubmit,
+  form }) => {
+
   return(
     <View style={styles.container}>
       <Container>
@@ -20,22 +27,53 @@ const CreateContactComponent = () => {
           style={styles.imageView}
         />
         <Text style={styles.chooseText}>Choose image</Text>
-        <Input label="Fist Name" placeholder='Enter First name'/>
-        <Input label="Last Name" placeholder='Enter Last name'/>
+        <Input
+          onChangeText={(value) => {
+            onChangeText({name: 'firstName', value: value})
+          }}
+          label="Fist Name"
+          placeholder='Enter First name'
+          error={error?.first_name?.[0]}
+        />
+
+        <Input
+          onChangeText={(value) => {
+            onChangeText({name: 'lastName', value: value})
+          }}
+          label="Last Name"
+          placeholder='Enter Last name'
+          error={error?.last_name?.[0]}
+        />
+
         <Input icon={ <CountryPicker
           withFilter
           withFlag
-          withCountryNameBUtton={false}
+          countryCode={form.countryCode || undefined}
+          withCountryNameButton={false}
+          withCallingCode
+          withCallingCodeButton
           withEmoji
-          onSelect={() => {}}
-
-          />
+          onSelect={(v) => {
+            const phoneCode = v.callingCode[0];
+            const cCode = v.cca2;
+            setForm({...form, phoneCode, countryCode:cCode})
+          }}/>
         }
         style={{paddingLeft: 10}}
         iconPosition='left'
+        error={error?.phone_number?.[0]}
+        onChangeText={(value) => {
+          onChangeText({name: 'phoneNumber', value: value})
+        }}
         label="Phone Number" placeholder='Enter Phone Namber'/>
 
-        <CustomButton primary  title="Submit"/>
+        <CustomButton
+          loading={loading}
+          disabled={loading}
+          onPress={onSubmit}
+          primary
+          title="Submit"
+        />
 
       </Container>
     </View>

@@ -12,7 +12,6 @@ export default StyleSheet.create({
     height: 150,
     borderRadius: 100,
     alignSelf: 'center',
-
   },
   chooseText: {
     color: colors.primary,
