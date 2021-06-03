@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View} from 'react-native';
+import { Image, View} from 'react-native';
 import CreateContactComponent from '../../components/CreateContactComponent';
 import createContact from '../../components/CreateContactComponent/createContact';
 import {useNavigation} from '@react-navigation/native';
@@ -23,6 +23,8 @@ const CreateContact = () => {
     setForm({...form, [name]: value})
   };
 
+  const [localFile, setLocalFile] = useState(null);
+
   const onSubmit = () =>{
     console.log('form data > ',form)
    createContact(form)(contactsDispatch)(() =>{
@@ -43,7 +45,13 @@ const CreateContact = () => {
 
   const toggleValueChange = () =>{
     setForm({...form, 'isFavorite': !form.isFavorite});
-  }
+  };
+
+  const onfileSelected = (image) =>{
+    closeSheet();
+    setLocalFile(image);
+    // console.log('img', images);
+  };
 
   return(
       <CreateContactComponent
@@ -57,6 +65,8 @@ const CreateContact = () => {
        sheetRef={sheetRef}
        closeSheet={closeSheet}
        openSheet={openSheet}
+       onfileSelected={onfileSelected}
+       localFile={localFile}
        />
   );
 };
