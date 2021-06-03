@@ -5,6 +5,7 @@ import createContact from '../../components/CreateContactComponent/createContact
 import {useNavigation} from '@react-navigation/native';
 import { CONTACT_LIST } from '../../constants/routeNames';
 import {GlobalContext} from '../../context/Provider';
+import { useRef } from 'react';
 
 const CreateContact = () => {
   const {
@@ -14,6 +15,7 @@ const CreateContact = () => {
     }
   } = useContext(GlobalContext);
 
+  const sheetRef = useRef(null)
   const [form, setForm] = useState({});
   const {navigate}=useNavigation();
 
@@ -22,10 +24,26 @@ const CreateContact = () => {
   };
 
   const onSubmit = () =>{
+    console.log('form data > ',form)
    createContact(form)(contactsDispatch)(() =>{
      navigate(CONTACT_LIST);
    });
   };
+
+  const closeSheet = () => {
+    if(sheetRef.current){
+      sheetRef.current.close();
+    }
+  };
+  const openSheet = () => {
+    if(sheetRef.current){
+      sheetRef.current.open();
+    }
+  };
+
+  const toggleValueChange = () =>{
+    setForm({...form, 'isFavorite': !form.isFavorite});
+  }
 
   return(
       <CreateContactComponent
@@ -34,7 +52,11 @@ const CreateContact = () => {
        form={form}
        setForm={setForm}
        loading={loading}
+       toggleValueChange={toggleValueChange}
        error={error}
+       sheetRef={sheetRef}
+       closeSheet={closeSheet}
+       openSheet={openSheet}
        />
   );
 };

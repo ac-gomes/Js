@@ -1,11 +1,14 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Switch,Image } from 'react-native';
 import styles from './style';
 import Container from '../Common/Container';
 import Input from '../Common/Input';
 import CustomButton from '../Common/CustomButton';
 import CountryPicker from 'react-native-country-picker-modal'
 import { DEFAULT_IMAGE_URI } from '../../constants/general';
+import colors from '../../assets/theme/colors';
+import ImagePicker from '../Common/ImagePicker';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 
@@ -15,7 +18,12 @@ const CreateContactComponent = ({
   onChangeText,
   setForm,
   onSubmit,
-  form }) => {
+  toggleValueChange,
+  form,
+  sheetRef,
+  openSheet,
+  closeSheet,
+ }) => {
 
   return(
     <View style={styles.container}>
@@ -26,7 +34,10 @@ const CreateContactComponent = ({
           source={{uri:DEFAULT_IMAGE_URI }} //colcoar o icone aqui user-circle
           style={styles.imageView}
         />
+        <TouchableOpacity onPress={openSheet}>
         <Text style={styles.chooseText}>Choose image</Text>
+        </TouchableOpacity>
+
         <Input
           onChangeText={(value) => {
             onChangeText({name: 'firstName', value: value})
@@ -59,13 +70,32 @@ const CreateContactComponent = ({
             setForm({...form, phoneCode, countryCode:cCode})
           }}/>
         }
-        style={{paddingLeft: 10}}
-        iconPosition='left'
-        error={error?.phone_number?.[0]}
-        onChangeText={(value) => {
+          style={{paddingLeft: 10}}
+          iconPosition='left'
+          error={error?.phone_number?.[0]}
+          onChangeText={(value) => {
           onChangeText({name: 'phoneNumber', value: value})
         }}
-        label="Phone Number" placeholder='Enter Phone Namber'/>
+          label="Phone Number"
+          placeholder='Enter Phone Namber'
+        />
+
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingVertical: 10,
+          }}>
+          <Text style={{fontSize: 17}}>Add to favorites</Text>
+          <Switch
+            trackColor={{ false: '#767577', true: colors.primary }}
+            thumbColor={'#ffffff'}
+            ios_backgroundColor='#3e3e3e'
+            onValueChange={toggleValueChange}
+            value={form.isFavorite}
+          />
+        </View>
 
         <CustomButton
           loading={loading}
@@ -76,6 +106,9 @@ const CreateContactComponent = ({
         />
 
       </Container>
+
+      <ImagePicker ref={sheetRef}/>
+
     </View>
   );
 }
