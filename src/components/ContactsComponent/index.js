@@ -3,13 +3,12 @@ import {useNavigation} from '@react-navigation/native';
 import {View, Text, FlatList, ActivityIndicator, Image} from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import colors from '../../assets/theme/colors';
-import { CREATE_CONTACT } from '../../constants/routeNames';
-import AppModal from '../Common/AppModal';
+import { CONTACT_DETAIL, CREATE_CONTACT } from '../../constants/routeNames';
 import Icon from '../Common/Icon';
 import Message from '../Common/Message'
 import styles from "./styles"
 
-const ContactsComponent = ({modalVisible, data, loading, setModalVisible, }) => {
+const ContactsComponent = ({sortBy,data, loading, setModalVisible, }) => {
   const {navigate} = useNavigation();
 
   const ListEmptyComponent = () => {
@@ -22,20 +21,24 @@ const ContactsComponent = ({modalVisible, data, loading, setModalVisible, }) => 
 
   const renderItem = ({item}) => {
     const {
-      contact_piture,
+      contact_picture,
       first_name,
       country_code,
       last_name,
       phone_number,
     } = item;
 
+
     return (
-    <TouchableOpacity style={styles.itemContainer}>
+    <TouchableOpacity style={styles.itemContainer} onPress={() => {
+
+      navigate(CONTACT_DETAIL, {item})
+    }}>
         <View style={styles.item}>
-          {contact_piture ? (
+          {contact_picture ? (
             <Image
                 style={{width:45, height:45, borderRadius:100, paddingVertical:5,}}
-                source={{uri: contact_piture}}
+                source={{uri: contact_picture}}
             />
             ) : (
             <View
@@ -73,17 +76,6 @@ const ContactsComponent = ({modalVisible, data, loading, setModalVisible, }) => 
   return (
     <>
       <View style={{backgroundColor: colors.white}}>
-        <AppModal
-          modalFooter={<></>}
-          modalBody={
-            <View>
-              <Text>Change profiles here</Text>
-            </View>
-          }
-          title='My Profile!'
-          setModalVisible={setModalVisible}
-          modalVisible={modalVisible}
-        />
         {loading && (
         <View style={{paddingVertical:100, paddingHorizontal:100}}>
         <ActivityIndicator color={colors.primary} size='large' /></View>
@@ -93,7 +85,24 @@ const ContactsComponent = ({modalVisible, data, loading, setModalVisible, }) => 
           <View style={{paddingVertical: 20,}}>
             <FlatList
             renderItem={renderItem}
-            data={data}
+            data={sortBy ? data.sort((a,b) => {
+              if(sortBy === 'First Name'){
+                if(b.first_name > a.first_name){
+                  return -1;
+                }else {
+                  return 1;
+                }
+              }
+
+              if(sortBy === 'Last Name'){
+                if(b.last_name > a.last_name){
+                  return -1;
+                }else {
+                  return 1;
+                }
+              }
+
+            }) : data }
             ItemSeparatorComponent={() => (
               <View style={{height: 0.5, backgroundColor: colors.grey}}></View>
             )}

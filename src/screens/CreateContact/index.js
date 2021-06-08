@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { Image, View} from 'react-native';
 import CreateContactComponent from '../../components/CreateContactComponent';
 import createContact from '../../components/CreateContactComponent/createContact';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import { CONTACT_LIST } from '../../constants/routeNames';
 import {GlobalContext} from '../../context/Provider';
 import { useRef } from 'react';
+import uploadImage from '../../helpers/uploadImage';
 
 const CreateContact = () => {
   const {
@@ -17,6 +17,7 @@ const CreateContact = () => {
 
   const sheetRef = useRef(null)
   const [form, setForm] = useState({});
+  const [uploading, setIsUploading] = useState(false);
   const {navigate}=useNavigation();
 
   const onChangeText = ({name, value}) =>{
@@ -26,11 +27,27 @@ const CreateContact = () => {
   const [localFile, setLocalFile] = useState(null);
 
   const onSubmit = () =>{
-    console.log('form data > ',form)
-   createContact(form)(contactsDispatch)(() =>{
-     navigate(CONTACT_LIST);
-   });
-  };
+    console.log('localfile :>>',localFile);
+
+    if(localFile?.size){
+      setIsUploading(true);
+      uploadImage(localFile) ((url) => {
+        setIsUploading(false);
+        console.log('url apos Upload', url)
+        createContact({...form, contactPicture: url}) (contactsDispatch) (
+          () =>{
+            navigate(CONTACT_LIST);
+      });
+    }) ((err) => {
+        console.log('erro apos upload', err)
+        setIsUploading(false);
+      });
+    }else {
+      createContact(form)(contactsDispatch)(() =>{
+        navigate(CONTACT_LIST);
+    });
+  }
+}
 
   const closeSheet = () => {
     if(sheetRef.current){
@@ -59,7 +76,7 @@ const CreateContact = () => {
        onChangeText ={onChangeText}
        form={form}
        setForm={setForm}
-       loading={loading}
+       loading={loading || uploading}
        toggleValueChange={toggleValueChange}
        error={error}
        sheetRef={sheetRef}

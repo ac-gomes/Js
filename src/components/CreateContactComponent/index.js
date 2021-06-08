@@ -25,7 +25,7 @@ const CreateContactComponent = ({
   localFile,
   onfileSelected,
  }) => {
-  console.log('localFile', localFile);
+
   return(
     <View style={styles.container}>
       <Container>

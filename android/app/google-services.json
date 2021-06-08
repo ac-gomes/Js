@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "88312873993",
+    "project_id": "androidcontacts-fe2bb",
+    "storage_bucket": "androidcontacts-fe2bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:88312873993:android:be20cf053bffb8d4a824d8",
+        "android_client_info": {
+          "package_name": "com.acgomes.rncontacts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "88312873993-ks7jptq5d1l8125qvlorn96456fte9vp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA14bnv90Q7E6hq_0FE02F-CpztEbRc1NU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "88312873993-ks7jptq5d1l8125qvlorn96456fte9vp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

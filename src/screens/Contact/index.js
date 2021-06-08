@@ -1,4 +1,5 @@
-import { useNavigation } from '@react-navigation/core';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect, useNavigation } from '@react-navigation/core';
 import React, { useContext, useEffect, useState } from 'react';
 import {TouchableOpacity} from 'react-native';
 import Icon from '../../components/Common/Icon'
@@ -6,7 +7,9 @@ import ContactsComponent from '../../components/ContactsComponent';
 import getContacts from '../../components/ContactsComponent/getContacts';
 import {GlobalContext} from '../../context/Provider'
 
-const Contacts = () => {
+const Contacts = ({navigation}) => {
+
+  const [sortBy, setSortBy] = React.useState(null);
   const {setOptions, toggleDrawer} = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -18,11 +21,24 @@ const Contacts = () => {
   } = useContext(GlobalContext);
 
   useEffect(() => {
+    getContacts()(contactsDispatch);
+  }, []);
 
-    getContacts()(contactsDispatch)
+  const getSettings = async () => {
+    const sortPref = await AsyncStorage.getItem('sortBy');
+    if(sortPref){
+      setSortBy(sortPref)
+    }
+  };
 
-  },[])
+  useFocusEffect(
+    React.useCallback(() => {
+      getSettings();
+      return () => {
 
+      }
+    }, [])
+  )
 
   useEffect(() => {
     setOptions({
@@ -42,6 +58,7 @@ const Contacts = () => {
       setModalVisible={setModalVisible}
       data={data}
       loading={loading}
+      sortBy={sortBy}
     />
   );
 };
