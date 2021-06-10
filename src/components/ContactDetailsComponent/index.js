@@ -28,7 +28,7 @@ const ContactDetailsComponent = ({contact}) => {
       last_name,
       phone_number,
     } = contact;
-    console.log('image from detalheContato',contact);
+
     return (
       <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
