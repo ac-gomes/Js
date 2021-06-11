@@ -1,7 +1,67 @@
+import {
+  CREATE_CONTACT_FAIL,
+  CREATE_CONTACT_LOADING,
+  CREATE_CONTACT_SUCCESS,
+  DELETE_CONTACT_LOADING,
+  DELETE_CONTACT_SUCCESS,
+  DELETE_CONTACT_FAIL,
+  GET_CONTACTS_FAIL,
+  GET_CONTACTS_LOADING,
+  GET_CONTACTS_SUCCESS,
+  EDIT_CONTACT_LOADING,
+  EDIT_CONTACT_SUCCESS,
+  EDIT_CONTACT_FAIL,
+} from '../../constants/actionTypes';
 const contacts = (state, {type, payload}) => {
   switch (type) {
 
-    case 'DELETE_CONTACT_LOADING': {
+    case EDIT_CONTACT_LOADING: {
+      return {
+        ...state,
+        createContact: {
+          ...state.deleteContact,
+          loading: true,
+          error: null,
+        },
+      }
+    }
+
+    case EDIT_CONTACT_SUCCESS: {
+      return {
+        ...state,
+        createContact: {
+          ...state.deleteContact,
+          loading: false,
+          error: null,
+        },
+
+        getContacts: {
+          ...state.getContacts,
+          loading: false,
+          data: state.getContacts.data.map(item => {
+            if(item.id === payload.id){
+              return payload;
+            }else{
+              return item;
+            }
+          }),
+          error: null,
+        },
+      }
+    }
+
+    case EDIT_CONTACT_FAIL: {
+      return {
+        ...state,
+        createContact: {
+          ...state.deleteContact,
+          loading: true,
+          error: null,
+        },
+      }
+    }
+
+    case DELETE_CONTACT_LOADING: {
       return {
         ...state,
         deleteContact: {
@@ -12,7 +72,7 @@ const contacts = (state, {type, payload}) => {
       }
     }
 
-    case 'DELETE_CONTACT_SUCCESS': {
+    case DELETE_CONTACT_SUCCESS: {
       return {
         ...state,
         deleteContact: {
@@ -30,7 +90,7 @@ const contacts = (state, {type, payload}) => {
       }
     }
 
-    case 'DELETE_CONTACT_FAIL': {
+    case DELETE_CONTACT_FAIL: {
       return {
         ...state,
         deleteContact: {
@@ -41,7 +101,7 @@ const contacts = (state, {type, payload}) => {
       }
     }
 
-    case 'CREATE_CONTACT_LOADING':
+    case CREATE_CONTACT_LOADING:
       return {
         ...state,
         createContact: {
@@ -51,7 +111,7 @@ const contacts = (state, {type, payload}) => {
         },
       };
 
-    case 'CREATE_CONTACT_SUCCESS':
+    case CREATE_CONTACT_SUCCESS:
       return {
         ...state,
         createContact: {
@@ -69,7 +129,7 @@ const contacts = (state, {type, payload}) => {
         },
       };
 
-    case 'CREATE_CONTACT_FAIL':
+    case CREATE_CONTACT_FAIL:
       return {
         ...state,
         createContact: {
@@ -79,7 +139,7 @@ const contacts = (state, {type, payload}) => {
         },
       };
 
-    case 'GET_CONTACTS_LOADING':
+    case GET_CONTACTS_LOADING:
       return {
         ...state,
         getContacts: {
@@ -89,7 +149,7 @@ const contacts = (state, {type, payload}) => {
         },
       };
 
-    case 'GET_CONTACTS_SUCCESS':
+    case GET_CONTACTS_SUCCESS:
       return {
         ...state,
         getContacts: {
@@ -100,7 +160,7 @@ const contacts = (state, {type, payload}) => {
         },
       };
 
-    case 'GET_CONTACTS_FAIL':
+    case GET_CONTACTS_FAIL:
       return {
         ...state,
         getContacts: {

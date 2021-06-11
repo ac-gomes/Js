@@ -1,11 +1,13 @@
-import React, { useContext, useState } from 'react';
+import {useNavigation, useRoute } from '@react-navigation/native';
+import React, { useContext, useState, useEffect} from 'react';
 import CreateContactComponent from '../../components/CreateContactComponent';
 import createContact from '../../components/CreateContactComponent/createContact';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import { CONTACT_LIST } from '../../constants/routeNames';
+import { CONTACT_DETAIL, CONTACT_LIST } from '../../constants/routeNames';
 import {GlobalContext} from '../../context/Provider';
 import { useRef } from 'react';
 import uploadImage from '../../helpers/uploadImage';
+import countryCodes from '../../utils/countryCodes';
+import editContact from '../../context/actions/contacts/editContact';
 
 const CreateContact = () => {
   const {
@@ -18,36 +20,96 @@ const CreateContact = () => {
   const sheetRef = useRef(null)
   const [form, setForm] = useState({});
   const [uploading, setIsUploading] = useState(false);
-  const {navigate}=useNavigation();
+  const {navigate, setOptions} = useNavigation();
+  const {params} = useRoute();
+
+  const [localFile, setLocalFile] = useState(null);
+
+  useEffect(() => {
+    if(params?.contact){
+      setOptions({titel: 'Update Contact'});
+      const {
+        first_name: firstName,
+        phone_number: phoneNumber,
+        last_name: lastName,
+        is_favorite: isFavorite,
+        country_code: countryCode,
+      } = params?.contact;
+
+      setForm((prev) =>{
+        return {
+          ...prev,
+          firstName,
+          isFavorite,
+          phoneNumber,
+          lastName,
+          phoneCode: countryCode,
+        };
+      });
+
+      const country = countryCodes.find((item )=> {
+        return item.value.replace('+','') === countryCode;
+      });
+
+      if (country) {
+        setForm((prev) =>{
+          return {
+            ...prev,
+            countryCode: country.key.toUpperCase(),
+          };
+        });
+      }
+      if(params?.contact?.contact_picture){
+        setLocalFile(params?.contact?.contact_picture);
+      }
+    }
+  }, [])
 
   const onChangeText = ({name, value}) =>{
     setForm({...form, [name]: value})
   };
 
-  const [localFile, setLocalFile] = useState(null);
 
   const onSubmit = () =>{
-    console.log('localfile :>>',localFile);
+    if(params?.contact){
+      if(localFile?.size){
+        setIsUploading(true);
+        uploadImage(localFile) ((url) => {
+          setIsUploading(false);
+          editContact({...form, contactPicture: url},
+            params?.contact.id,
+          )(contactsDispatch)((item) =>{
+              navigate(CONTACT_DETAIL,{item});
+          });
+      })((err) => {
+          setIsUploading(false);
+        });
+      }else {
+        editContact(form, params?.contact.id)(contactsDispatch)((item) =>{
+          navigate(CONTACT_DETAIL,{item});
+        });
+      }
 
-    if(localFile?.size){
-      setIsUploading(true);
-      uploadImage(localFile) ((url) => {
-        setIsUploading(false);
-        console.log('url apos Upload', url)
-        createContact({...form, contactPicture: url}) (contactsDispatch) (
-          () =>{
-            navigate(CONTACT_LIST);
-      });
-    }) ((err) => {
-        console.log('erro apos upload', err)
-        setIsUploading(false);
-      });
-    }else {
-      createContact(form)(contactsDispatch)(() =>{
-        navigate(CONTACT_LIST);
-    });
+    } else {
+      if(localFile?.size){
+        setIsUploading(true);
+        uploadImage(localFile) ((url) => {
+          setIsUploading(false);
+          createContact({...form, contactPicture: url}) (contactsDispatch) (
+            () =>{
+              navigate(CONTACT_LIST);
+            }
+        );
+      })((err) => {
+          setIsUploading(false);
+        });
+      }else {
+        createContact(form)(contactsDispatch)(() =>{
+          navigate(CONTACT_LIST);
+        });
+    }
   }
-}
+};
 
   const closeSheet = () => {
     if(sheetRef.current){

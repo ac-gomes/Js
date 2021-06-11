@@ -116,8 +116,6 @@ const ContactDetailsComponent = ({contact}) => {
               name="video-camera"
               color={colors.primary}
               size={27}
-
-
             />
             <Icon
               type="MaterialCommunityIcons"

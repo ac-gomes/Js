@@ -29,7 +29,7 @@ const ContactDetail = () => {
           <View style={{flexDirection: 'row', paddingRight: 10}}>
             <TouchableOpacity >
             <Icon
-              color={colors.grey}
+              color={item.is_favorite ? colors.favorite : colors.grey}
               name={item.is_favorite ? 'star' : 'star-border'}
               type="MaterialIcon"
               size={21}
@@ -58,7 +58,7 @@ const ContactDetail = () => {
               <ActivityIndicator size='small' colors={colors.primary}/>
             ) : (
                 <Icon
-                color={colors.grey}
+                color={colors.primary}
                 name='delete'
                 type='MaterialIcon'
                 size={21}/>)}
