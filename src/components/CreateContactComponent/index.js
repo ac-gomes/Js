@@ -10,8 +10,6 @@ import colors from '../../assets/theme/colors';
 import ImagePicker from '../Common/ImagePicker';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-
-
 const CreateContactComponent = ({
   loading,
   error,

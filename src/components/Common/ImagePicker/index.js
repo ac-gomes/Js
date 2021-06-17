@@ -20,7 +20,8 @@ const ImagePicker = React.forwardRef( ({onfileSelected}, ref) => {
         }).then((images) => {
             onfileSelected(images);
         }).catch(error =>{
-          console.log('err', error)
+          console.log('Take from camera componente ImagePicker');
+          console.log('err', error);
         });
       },
     },
@@ -34,8 +35,10 @@ const ImagePicker = React.forwardRef( ({onfileSelected}, ref) => {
           cropping: true,
           freeStyleCropEnabled: true,
         }).then((images) => {
+          console.log('Choose from Gallery componente ImagePicker',images);
             onfileSelected(images);
         }).catch(error =>{
+          console.log('Choose from Gallery componente ImagePicker');
           console.log('err', error)
         });
       },

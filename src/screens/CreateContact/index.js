@@ -122,14 +122,14 @@ const CreateContact = () => {
     }
   };
 
-  const toggleValueChange = () =>{
-    setForm({...form, 'isFavorite': !form.isFavorite});
-  };
-
   const onfileSelected = (image) =>{
     closeSheet();
     setLocalFile(image);
     // console.log('img', images);
+  };
+
+  const toggleValueChange = () =>{
+    setForm({...form, 'isFavorite': !form.isFavorite});
   };
 
   return(

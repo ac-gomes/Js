@@ -16,9 +16,18 @@ import styles from "./styles"
 import ImageComponent from './ImageComponent';
 import ImagePicker from '../Common/ImagePicker';
 import CustomButton from '../Common/CustomButton';
+import { DEFAULT_IMAGE_URI } from '../../constants/general';
 
 
-const ContactDetailsComponent = ({contact}) => {
+const ContactDetailsComponent = ({
+  contact,
+  openSheet,
+  sheetRef,
+  onfileSelected,
+  updatingImage,
+  localFile,
+  uploadSucceeded,
+}) => {
   const {navigate} = useNavigation();
 
     const {
@@ -28,7 +37,7 @@ const ContactDetailsComponent = ({contact}) => {
       last_name,
       phone_number,
     } = contact;
-
+    console.log('ContactDetailsComponent localfile>',localFile?.path)
     return (
       <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
@@ -136,7 +145,7 @@ const ContactDetailsComponent = ({contact}) => {
         />
       </View>
 
-      {/* <ImagePicker onFileSelected={onFileSelected} ref={sheetRef} /> */}
+      <ImagePicker onfileSelected={onfileSelected} ref={sheetRef} />
     </ScrollView>
   );
 };
