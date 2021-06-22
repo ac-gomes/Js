@@ -19,8 +19,9 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       drawerType="back"
-      drawerContent={({navigation}) => getDrawerContent(navigation, authDispatch)}
-    >
+      drawerContent={({navigation}) =>
+        getDrawerContent(navigation, authDispatch)
+      }>
       <Drawer.Screen name={HOME_NAVIGATOR} component={HomeNavigator}></Drawer.Screen>
     </Drawer.Navigator>
   );

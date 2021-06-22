@@ -25,8 +25,7 @@ const SideMenu = ({navigation, authDispatch}) => {
       {
         text:'OK',
         onPress: () => {
-          logoutUser() (authDispatch);
-          console.log('sair');
+          logoutUser()(authDispatch);
         },
       },
     ]);
@@ -53,7 +52,7 @@ const SideMenu = ({navigation, authDispatch}) => {
         <Image
         height={70}
         width={70}
-          source={require('../../assets/images/react-native2-logo.png')}
+          source={require('../../assets/images/icon-rn.png')}
           style={styles.logoImage}
         />
         <View style={{paddingHorizontal: 70}}>

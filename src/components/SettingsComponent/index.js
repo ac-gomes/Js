@@ -1,15 +1,8 @@
 import React from 'react';
 import {ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import styles from './styles'
-import Container from '../../components/Common/Container'
 import colors from '../../assets/theme/colors'
 import AppModal from '../Common/AppModal';
 import Icon from '../Common/Icon'
-
-
-
-
-
 
 const SettingsComponent = ({
   modalVisible,
@@ -22,18 +15,18 @@ const SettingsComponent = ({
       <AppModal
       modalVisible={modalVisible}
       modalFooter={<></>}
-      modalBody={<View>
+      closeOnTouchOutside={false}
+      modalBody={
+      <View>
         {preference.map(({name, selected, onPress}) => (
-          <View>
+          <View key={name}>
             <TouchableOpacity
               onPress={onPress}
               style={{
                 flexDirection: 'row',
                 paddingVertical: 5,
                 alignItems: 'center'
-              }}
-              key={name}
-            >
+              }}>
               {selected && <Icon name="check" type="MaterialIcon" size={17}/>}
               <Text style={{fontSize: 17, paddingLeft: selected ? 15 : 30}}>{name}</Text>
             </TouchableOpacity>
