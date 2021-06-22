@@ -24,7 +24,7 @@ const RegisterComponent = ({
     <Container>
       <Image height={70}
         width={70}
-        source={require('../../assets/images/register2.png')}
+        source={require('../../assets/images/icon-rn.png')}
         style={styles.logoImage}
       />
 

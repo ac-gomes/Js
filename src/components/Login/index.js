@@ -9,14 +9,23 @@ import styles from './styles';
 import {REGISTER} from '../../constants/routeNames';
 import Message from '../Common/Message';
 
-const LoginComponent = ({error, form, justSignedUp , onChange, loading , onSubmit}) => {
+const LoginComponent = ({
+  error,
+  form,
+  justSignedUp,
+  onChange,
+  loading,
+  onSubmit,
+}) => {
   const {navigate} = useNavigation();
   const [isSecuredEntry, setIsSecuredEntry] = useState(true);
     return(
     <Container>
-      <Image height={70} width={70}
-       source={require('../../assets/images/react-native2-logo.png')}
-       style={styles.logoImage}
+      <Image
+        height={72}
+        width={72}
+        source={require('../../assets/images/icon-rn.png')}
+        style={styles.logoImage}
       />
 
       <View>
