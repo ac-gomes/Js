@@ -9,6 +9,9 @@ import Input from '../../components/Common/Input';
 import {LOGIN} from '../../constants/routeNames';
 import Message from '../Common/Message';
 import styles from './styles';
+import Icon from '../Common/Icon';
+import colors from '../../assets/theme/colors';
+
 
 const RegisterComponent = ({
   onSubmit,
@@ -29,8 +32,8 @@ const RegisterComponent = ({
       />
 
       <View>
-        <Text style={styles.title}>Welcome to XYZ!</Text>
-        <Text style={styles.subTitle}>Create a free account</Text>
+        <Text style={styles.title}>Welcome to MyOwnApp!</Text>
+        <Text style={styles.subTitle}>Create a free account here</Text>
 
         <View style={styles.form}>
           {error?.error && <Message
@@ -88,7 +91,23 @@ const RegisterComponent = ({
               <TouchableOpacity onPress={() => {
                 setIsSecuredEntry(prev => !prev)
               }}>
-                <Text>{isSecuredEntry ? 'Show' : 'Hide'}</Text>
+
+                {isSecuredEntry ?
+                  <Icon
+                  type="MaterialCommunityIcons"
+                  name="eye"
+                  color={colors.grey}
+                  size={27}
+                  />
+                  :
+                  <Icon
+                  type="MaterialCommunityIcons"
+                  name="eye-off"
+                  color={colors.secondary}
+                  size={27}
+                  />
+                }
+
               </TouchableOpacity>
             }
             iconPosition ='right'

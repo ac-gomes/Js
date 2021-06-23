@@ -8,6 +8,8 @@ import Input from '../../components/Common/Input';
 import styles from './styles';
 import {REGISTER} from '../../constants/routeNames';
 import Message from '../Common/Message';
+import Icon from '../Common/Icon';
+import colors from '../../assets/theme/colors';
 
 const LoginComponent = ({
   error,
@@ -29,7 +31,7 @@ const LoginComponent = ({
       />
 
       <View>
-        <Text style={styles.title}>Bem Vindo!</Text>
+        <Text style={styles.title}>Welcome!</Text>
         <Text style={styles.subTitle}>Please Login here</Text>
 
         <View style={styles.form}>
@@ -73,7 +75,23 @@ const LoginComponent = ({
             <TouchableOpacity onPress={() => {
               setIsSecuredEntry(prev => !prev)
             }}>
-              <Text>{isSecuredEntry ? 'Show' : 'Hide'}</Text>
+              {isSecuredEntry ?
+                <Icon
+                type="MaterialCommunityIcons"
+                name="eye"
+                color={colors.grey}
+                size={27}
+                />
+                :
+               <Icon
+               type="MaterialCommunityIcons"
+               name="eye-off"
+               color={colors.secondary}
+               size={27}
+              />
+             }
+
+
             </TouchableOpacity>
           }
           iconPosition ='right'
